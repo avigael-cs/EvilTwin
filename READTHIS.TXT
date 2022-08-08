@@ -1,0 +1,50 @@
+Written by: ron
+
+To anyone who may use this now (Shmuel)
+1. Change iface in every .conf files as I had changed it in literally every single one of them
+2. open a teminal and perform:var/www/html/passwords
+
+3. type: sudo gedit /etc/apache2/sites-enabled/000-default.conf
+   and under the </VirtualHost> line paste the following:
+   <Directory "/var/www/html">
+	RewriteEngine On
+	RewriteBase /
+	RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+	RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+	
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ / [L,QSA]
+</Directory>
+
+4. enable apache2 rewrite by typing: a2enmod rewrite 
+	and follow instructions.
+
+	sudo a2enmod rewrite 
+	sudo systemctl restart apache2
+
+	
+5. start the apache2 webserver by typing: sudo service apache2 start
+
+6: the main change to make this work was in the file Evil_Twin/config/dns.conf
+   see line 28. this is required! this will route the first (or every, idk) request to that   
+   address which happens to be where the server is hosted (localhost will work too), 
+   so when the user enters it, the portal will open.
+
+
+
+
+
+
+
+   deauth reson numbers:
+https://www.cisco.com/assets/sol/sb/WAP371_Emulators/WAP371_Emulator_v1-0-1-3/help/Apx_ReasonCodes2.html
+
+defence:
+https://www.aon.com/cyber-solutions/aon_cyber_labs/slaying-rogue-access-points-with-python-and-cheap-hardware/
+https://github.com/s0lst1c3/sentrygun
+
+
+https://www.fosstechnix.com/how-to-install-mysql-8-0-on-kali-linux/
+
+/etc/apache2/sites-enabled/android.conf 
